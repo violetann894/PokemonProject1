@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The Deck class holds the cards used in the game and holds methods that relate to the deck.
@@ -8,7 +9,7 @@ public class Deck extends Card{
 
     private ArrayList<Card> deckOfCards;
 
-    public ArrayList<Card> generateDeck(int numOfPokemon, int numOfEnergies){
+    public void generateDeck(int numOfPokemon, int numOfEnergies){
         ArrayList<Card> deck = new ArrayList<>();
 
         for(int i = 0; i < numOfPokemon; i++){
@@ -19,7 +20,31 @@ public class Deck extends Card{
             deck.add(new Card(new Energy()));
         }
 
-        return deck;
+        deckOfCards = deck;
     }
 
+    public void shuffle(){
+        ArrayList<Card> shuffled = new ArrayList<>();
+        Random random = new Random();
+
+        for(int i = 0; i < deckOfCards.size(); i++){
+            int randomValue = random.nextInt(0, deckOfCards.size());
+            shuffled.add(deckOfCards.get(randomValue));
+            deckOfCards.remove(randomValue);
+        }
+
+        deckOfCards = shuffled;
+    }
+
+    public Card pickTopCard(){
+        return deckOfCards.remove(0);
+    }
+
+    public ArrayList<Card> getDeckOfCards() {
+        return deckOfCards;
+    }
+
+    public void setDeckOfCards(ArrayList<Card> deckOfCards) {
+        this.deckOfCards = deckOfCards;
+    }
 }
